@@ -28,19 +28,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
 
             // Arahkan pengguna ke dashboard sesuai role
-            if ($user['role'] == 'admin') {
-                header("Location: admin_dashboard.php");
-            } elseif ($user['role'] == 'bk') {
-                header("Location: bk_dashboard.php");
-            } elseif ($user['role'] == 'siswa') {
-                header("Location: siswa_dashboard.php");
+            switch ($user['role']) {
+                case 'admin':
+                    header("Location: admin_dashboard.php");
+                    break;
+                case 'bk':
+                    header("Location: bk_dashboard.php");
+                    break;
+                case 'siswa':
+                    header("Location: siswa_dashboard.php");
+                    break;
             }
             exit();
         } else {
-            echo "Password salah.";
+            $error_message = "Password salah.";
         }
     } else {
-        echo "Pengguna tidak ditemukan. Username yang dicari: " . htmlspecialchars($username);
+        $error_message = "Pengguna tidak ditemukan. Username yang dicari: " . htmlspecialchars($username);
     }
 }
 ?>
@@ -50,13 +54,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Login Pengguna</h1>
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container">
+        <h1>Login Pengguna</h1>
+        <?php if (isset($error_message)): ?>
+            <div class="error-message"><?php echo $error_message; ?></div>
+        <?php endif; ?>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
 </html>
