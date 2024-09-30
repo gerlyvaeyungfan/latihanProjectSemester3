@@ -55,11 +55,11 @@ $result = $conn->query("SELECT id, name, class, abs_number, username FROM studen
     <title>Admin Dashboard</title>
     <style>
         table {
-            width: 100%;
+            width: 50%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-        th, td {
+        table, th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
@@ -67,9 +67,14 @@ $result = $conn->query("SELECT id, name, class, abs_number, username FROM studen
         th {
             background-color: #4CAF50; /* Warna hijau */
             color: white;
+            padding: 10px;
+        }
+        td {
+            padding: 10px;
         }
         nav {
             margin-bottom: 20px;
+            margin-left: 2;
         }
         nav a {
             margin-right: 15px;
@@ -78,31 +83,83 @@ $result = $conn->query("SELECT id, name, class, abs_number, username FROM studen
         }
         .logout-link {
             display: block;
-            text-align: center;
+            text-align: left;
             margin-top: 20px;
             text-decoration: none;
             color: #f44336; /* Merah untuk logout */
             font-weight: bold;
         }
         .action-links a {
-            margin-right: 10px;
+            margin-left: 10px;
             text-decoration: none;
             color: #2196F3; /* Warna biru */
         }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #4CAF50; /* Warna hijau */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
     </style>
 </head>
 <body>
     <nav>
-        <a href="register.php">Tambah User</a>
+        <ul>
+            <li><a href="register.php">Tambah User</a></li>
+        </ul>
     </nav>
     
     <h1>Tambah Siswa</h1>
     <form method="POST">
-        <input type="text" name="name" placeholder="Nama Siswa" required>
-        <input type="text" name="class" placeholder="Kelas" required>
-        <input type="number" name="abs_number" placeholder="No Absen" required>
-        <input type="text" name="username" placeholder="Username Siswa" required>
-        <button type="submit">Tambah</button>
+        <table>
+            <tr>
+                <th>Informasi</th>
+                <th>Data</th>
+            </tr>
+            <tr>
+                <td><label for="name">Nama Siswa:</label></td>
+                <td><input type="text" id="name" name="name" placeholder="Nama Siswa" required></td>
+            </tr>
+            <tr>
+                <td><label for="class">Kelas:</label></td>
+                <td><input type="text" id="class" name="class" placeholder="Kelas" required></td>
+            </tr>
+            <tr>
+                <td><label for="abs_number">No Absen:</label></td>
+                <td><input type="number" id="abs_number" name="abs_number" placeholder="No Absen" required></td>
+            </tr>
+            <tr>
+                <td><label for="username">Username Siswa:</label></td>
+                <td><input type="text" id="username" name="username" placeholder="Username Siswa" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit">Tambah</button>
+                </td>
+            </tr>
+        </table>
     </form>
 
     <h2>Daftar Siswa</h2>
