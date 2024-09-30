@@ -121,7 +121,6 @@ $result = $conn->query("SELECT id, name, class, abs_number, username FROM studen
         button:hover {
             background-color: #45a049;
         }
-
     </style>
 </head>
 <body>
